@@ -1,8 +1,11 @@
 package com.josan.accounting.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +19,14 @@ public class AccountsController {
 	@Autowired
 	private IAccountsService accounts;
 	
+	@GetMapping("/accounts")
 	public List<Account> getAccounts(){
 		return accounts.findAll();
+	}
+	
+	@GetMapping("/accounts/{id}")
+	public Optional<Account> getAccounts(@PathVariable("id") int idAccount){
+		return accounts.search(idAccount);
 	}
 
 }
