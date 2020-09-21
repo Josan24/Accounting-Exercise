@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,6 +56,12 @@ public class AccountsController {
 		accounts.save(account);
 		
 		return account;		
+	}
+	
+	@DeleteMapping("/accounts/{id}")
+	public String delete(@PathVariable("id") int idAccount) {
+		accounts.delete(idAccount);
+		return "Account Deleted";
 	}
 
 }
