@@ -63,5 +63,25 @@ public class AccountsController {
 		accounts.delete(idAccount);
 		return "Account Deleted";
 	}
+	
+	@PutMapping("/accounts/{id1}/{id2}/{money}")
+	public String transfer(@PathVariable("id1") int id1, @PathVariable("id2") int id2 ,@PathVariable("money") int money) {
+		Optional<Account> acc1 = accounts.search(id1);
+		Optional<Account> acc2 = accounts.search(id2);
+		
+		if (acc1.get().isTreasury() == false) {
+			if (acc1.get().getBalance() < money) {
+				// We must block the transfer
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Non treasury accounts can not have negative balance");
+			}
+		}
+		acc1.get().setBalance(acc1.get().getBalance() - money);
+		acc2.get().setBalance(acc2.get().getBalance() + money);
+		
+		accounts.save(acc1.get());
+		accounts.save(acc2.get());
+		
+		throw new ResponseStatusException(HttpStatus.ACCEPTED, "Transfer accepted");
+	}
 
 }
