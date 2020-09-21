@@ -9,5 +9,5 @@ Spring Boot Rest Exercise
 
 To-do list:
 - Implements a functionality for currency exchange in transfer operations.
-- Implement search of accounts actions
+- Implement search of accounts
 - Implement Unit and component testing
